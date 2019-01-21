@@ -1,6 +1,6 @@
 import csv
 
-
+# these 3 blocks write scv with headers 
 '''write new csv with 
 with open('bronze_headers.csv', 'w') as outcsv:
     writer = csv.writer(outcsv)
@@ -25,7 +25,7 @@ with open('silver_headers.csv', 'w') as outcsv:
         writer.writerows(row + [0.0] for row in reader) '''
 
 
-
+# these block creates lists of gold, medal, silver -> adds to one list 
 
 
 final_list = []
@@ -35,7 +35,7 @@ with open('bronze_headers.csv', 'r') as medalists_bronze:
         list1 = []
         list1.append(person['rdf-schema#label'])
         list1.append(person['birthPlace_label'])
-        list1.append(person['nationality'])
+        list1.append(person['nationality_label'])
         list1.append(person['description'])
         list1.append(person['22-rdf-syntax-ns#type_label'])
         list1.append('Bronze')
@@ -46,7 +46,7 @@ with open('gold_headers.csv', 'r') as medalists_gold:
         list2 = []
         list2.append(person['rdf-schema#label'])
         list2.append(person['birthPlace_label'])
-        list2.append(person['nationality'])
+        list2.append(person['nationality_label'])
         list2.append(person['description'])
         list2.append(person['22-rdf-syntax-ns#type_label'])
         list2.append('Gold')
@@ -57,13 +57,13 @@ with open('silver_headers.csv', 'r') as medalists_silver:
         list3 = []
         list3.append(person['rdf-schema#label'])
         list3.append(person['birthPlace_label'])
-        list3.append(person['nationality'])
+        list3.append(person['nationality_label'])
         list3.append(person['description'])
         list3.append(person['22-rdf-syntax-ns#type_label'])
         list3.append('Silver')
         final_list.append(list3)
 
-# save a list to the scv file
+# save a list to the scv file with headers
 with open ('data_for_r_1.csv', 'w') as file:
     writer = csv.writer(file)
     writer.writerow(['name', 'birth_place', 'nationality', 'sport', 'labels', 'medal'])
