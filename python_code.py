@@ -1,14 +1,6 @@
 import csv
-'''
-final_list = []
-for line in medalists:
-    person = []
-    person.append(line[''])
-    birth_date = line['']
-    person.append(birth_date)
-    sport = line['']
-    person.append(sport)
-    final_list.append(person)
+
+
 
 #Save the final_list to a CSV file for use in R
 with open('bronze_headers.csv', 'w') as outcsv:
@@ -17,3 +9,14 @@ with open('bronze_headers.csv', 'w') as outcsv:
     with open('bronze.csv', 'r') as incsv:
         reader = csv.reader(incsv)
         writer.writerows(row + [0.0] for row in reader)
+
+final_list = []
+for line in medalists:
+    person = []
+    person.append(line['birthName'])
+    birth_date = line['birthPlace_label']
+    person.append(birth_date)
+    sport = line['depiction']
+    person.append(sport)
+    final_list.append(person)
+print(final_list)
