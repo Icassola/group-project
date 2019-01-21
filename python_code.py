@@ -1,13 +1,14 @@
-import json
 import csv
 
 final_list = []
-for line in gymnasts:
-    y = []
-    y.append(line['year'])
-    x = 
-    y.append(x)
-    final_list.append(y)
+for line in medalists:
+    person = []
+    person.append(line[''])
+    birth_date = line['']
+    person.append(birth_date)
+    sport = line['']
+    person.append(sport)
+    final_list.append(person)
 
 #Save the final_list to a CSV file for use in R
 with open('gymnasts.csv', 'w') as file:
