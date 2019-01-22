@@ -58,9 +58,10 @@ with open('withyears_headers.csv', encoding="utf8") as withyears:
     list_gold=[]
     list_silver=[]
     list_bronze=[]
+    
     for entry in reader:
-        athlete_list = []
         if 'OlympicGoldMedalist' in entry["22-rdf-syntax-ns#type_label"]:
+            athlete_list = []
             athlete_list.append(entry['Year'])
             athlete_list.append(entry['rdf-schema#label'])
             athlete_list.append(entry['birthPlace_label'])
@@ -69,7 +70,9 @@ with open('withyears_headers.csv', encoding="utf8") as withyears:
             athlete_list.append(entry['22-rdf-syntax-ns#type_label'])
             athlete_list.append("Gold Medalist")
             list_gold.append(athlete_list)
-        elif 'OlympicSilverMedalist' in entry["22-rdf-syntax-ns#type_label"]:
+            
+        if 'OlympicSilverMedalist' in entry["22-rdf-syntax-ns#type_label"]:
+            athlete_list = []
             athlete_list.append(entry['Year'])
             athlete_list.append(entry['rdf-schema#label'])
             athlete_list.append(entry['birthPlace_label'])
@@ -78,7 +81,9 @@ with open('withyears_headers.csv', encoding="utf8") as withyears:
             athlete_list.append(entry['22-rdf-syntax-ns#type_label'])
             athlete_list.append("Silver Medalist")
             list_silver.append(athlete_list)
-        elif 'OlympicBronzeMedalist' in entry["22-rdf-syntax-ns#type_label"]:
+            
+        if 'OlympicBronzeMedalist' in entry["22-rdf-syntax-ns#type_label"]:
+            athlete_list = []
             athlete_list.append(entry['Year'])
             athlete_list.append(entry['rdf-schema#label'])
             athlete_list.append(entry['birthPlace_label'])
@@ -87,10 +92,14 @@ with open('withyears_headers.csv', encoding="utf8") as withyears:
             athlete_list.append(entry['22-rdf-syntax-ns#type_label'])
             athlete_list.append("Bronze Medalist")
             list_bronze.append(athlete_list)
+            
 
 with open ('data_cleaned.csv', 'w', encoding="utf8", newline='') as file:
     writer = csv.writer(file)
     writer.writerow(['Year', 'Name', 'Birthplace', 'Nationality', 'Sport','Labels', 'Medal'])
     for line in list_gold:
         writer.writerow(line)
-    
+    for line in list_silver:
+        writer.writerow(line)
+    for line in list_bronze:
+        writer.writerow(line)
