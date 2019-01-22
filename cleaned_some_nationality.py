@@ -13,7 +13,7 @@ with open('noc_regions.csv') as countries_file:
 #print(f'Is Mozambique a country? {"Mozambique" in all_countries}')
 
 people = []
-with open ("new_data.csv") as file:
+with open ("name_nationality_sport.csv") as file:
     reader = csv.DictReader(file)
     headers = reader.fieldnames
     with open("cleaned_data.csv",'w') as cleaned_file:
@@ -38,9 +38,7 @@ with open ("new_data.csv") as file:
                 if country in all_countries:
                     line['nationality'] = country
                     #people.append(line)
-            writer.writerow(line)
-
-                    
+            writer.writerow(line)  
 #print(people)
                 
 #print(people)
