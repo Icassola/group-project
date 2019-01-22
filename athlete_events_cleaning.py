@@ -17,6 +17,7 @@ with open('athletes_medals.csv', 'r') as athletes:
 
     with open('athletes_years.csv', 'w', newline ='') as athletesyears:
         writer = csv.DictWriter(athletesyears, fieldnames=headers)
+        writer.writeheader()
         for line in reader: 
             if line['Age'] != 'NA':
                 year = int(line['Year'])
