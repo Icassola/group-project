@@ -15,7 +15,7 @@ with open('athletes_medals.csv', 'r') as athletes:
     headers.append('BirthYear')
     #print(f'headers is of type: {type(headers)}')
 
-    with open('athletes_years.csv', 'w', newline ='') as athletesyears:
+    with open('athletes_year.csv', 'w', newline ='') as athletesyears:
         writer = csv.DictWriter(athletesyears, fieldnames=headers)
         writer.writeheader()
         for line in reader: 
