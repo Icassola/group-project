@@ -24,4 +24,21 @@ with open('athletes_medals.csv', 'r') as athletes:
                 line['BirthYear'] = birthyear
                 writer.writerow(line)
 
+names = []
+#Creating file that has each medalist only once (shows athletes who won more than one medal only once)
+with open('athletes_year.csv', 'r') as athletes:
+    athletes_reader = csv.DictReader(athletes)
+    with open('person_per_line_kaggle.csv', 'w', newline ='') as file:
+        writer = csv.DictWriter(file, fieldnames=headers)
+        writer.writeheader()
+        for line in athletes_reader:
+            name = line['Name']
+            if name not in names:
+                names.append(name)
+                writer.writerow(line)
+
+
+
+
+
 
