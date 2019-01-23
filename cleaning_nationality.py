@@ -2,7 +2,7 @@ import csv
 import re
 
 # create dictionary with cities being keys, countries - values
-with open('test_csv.csv', encoding='utf-8') as file: 
+with open('all_cities.csv', encoding='utf-8') as file: 
     reader = csv.reader(file)
     next(reader)
     city_dict = {} # initialize dictionary
@@ -11,7 +11,7 @@ with open('test_csv.csv', encoding='utf-8') as file:
         city_dict[name] = country
 
 # create dictionary with the regions/states
-with open('test_csv.csv', encoding='utf-8') as file: 
+with open('all_cities.csv', encoding='utf-8') as file: 
     reader = csv.reader(file)
     next(reader)
     region_dict = {} # initialize dictionary
@@ -62,54 +62,54 @@ with open ('data_for_r_1.csv', "r") as file:
                     nationality = token
                     break
             
-            for ref_dict in [city_dict, demonym_dict, region_dict]:
+            for ref_dict in [city_dict, region_dict, demonym_dict]:
                 if nationality is None:
                     for token in tokens:
                         if token in ref_dict:
                             nationality = ref_dict[token]
                             break
 
-            ''' 
-            nationality = split_line[1] # value from birth_place column
-            if nationality == "NULL": # if birth_place == NULL
-                nationality = split_line[2] # replace with value from nationality column
-            '''
+            
+            #nationality = split_line[1] # value from birth_place column
+            #if nationality == "NULL": # if birth_place == NULL
+               # nationality = split_line[2] # replace with value from nationality column
+            
 
             # remove columns: nationality, medal, labels
             del(split_line[5])
             del(split_line[4])
             del(split_line[2])
 
-            '''
+           
             # extract country from {..|..} format and format {eastern germany|city}
-            if '{' in nationality:
-                maybe_country = nationality[1:-1].split('|')
-                for element in maybe_country:
-                    if element in all_countries:
-                        nationality = element
-                        break
-            if '{' in nationality:
-                maybe_country = re.split(' |\|', nationality[1:-1])
+            #if '{' in nationality:
+               # maybe_country = nationality[1:-1].split('|')
+               # for element in maybe_country:
+                 #   if element in all_countries:
+                  #      nationality = element
+                   #     break
+           # if '{' in nationality:
+              #  maybe_country = re.split(' |\|', nationality[1:-1])
                 #print(maybe_country)
-                for element in maybe_country:
-                    if element in all_countries:
-                        nationality = element
-                        break
+               # for element in maybe_country:
+                  #  if element in all_countries:
+                     #   nationality = element
+                     #   break
             
             # turn city names into country
-            if nationality not in all_countries:
-                if nationality in city_dict:
-                    nationality = city_dict[nationality]
+           # if nationality not in all_countries:
+              #  if nationality in city_dict:
+                  #  nationality = city_dict[nationality]
             # turn city into country for the format {city|value}
-                if '{' in nationality:
-                    maybe_country = nationality[1:-1].split('|')
-                    for element in maybe_country:
+               # if '{' in nationality:
+                   # maybe_country = nationality[1:-1].split('|')
+                   # for element in maybe_country:
 
-                        if element in city_dict.keys():
-                            nationality = city_dict[element]
-            '''
+                       # if element in city_dict.keys():
+                          #  nationality = city_dict[element]
+            
                             
-            print(nationality)
+            #print(nationality)
               
             split_line[1] = nationality
             writer.writerow(split_line)
@@ -124,3 +124,18 @@ with open ('data_for_r_1.csv', "r") as file:
 # sometimes birth_place was {eastern germany | city_name}, in which case split by | and ' ' to extract Germany
 # sometimes birth_place is a city name. If not in all_countries, check if it is a key in city_dict, and if so, return country
 # Write each row to a new (cleaned) csv file, calling birth_place column 'nationality'
+
+
+# get rid of duplicates in names ., one line per athletes 
+
+newname = []
+with open ('cleaned_nationality.csv') as file:
+    reader = csv.DictReader(file)
+    headers = reader.fieldnames
+    with open('person_per_line_dbp.csv', 'w', newline = '') as newfile: 
+        writer = csv.DictWriter(newfile, fieldnames = headers)
+        for line in reader:
+            name = line['name']
+            if name not in newname:
+                newname.append(name)
+                writer.writerow(line)
