@@ -9,6 +9,16 @@ with open('test_csv.csv', encoding='utf-8') as file:
     for line in reader: # for 2nd line onward
         (name, country, subcountry, geonameid ) = line
         city_dict[name] = country
+
+# create dictionary with the regions/states
+with open('test_csv.csv', encoding='utf-8') as file: 
+    reader = csv.reader(file)
+    next(reader)
+    region_dict = {} # initialize dictionary
+    for line in reader: # for 2nd line onward
+        (name, country, subcountry, geonameid ) = line
+        region_dict[subcountry] = country
+
 # create dictionary with the demonyms 
 with open('demonym.csv', encoding='utf-8') as file: 
     reader = csv.reader(file)
@@ -24,12 +34,12 @@ with open('noc_regions.csv') as countries_file:
     for country in countries_file:
         country_name = country.split(',')[1]
         all_countries.add(country_name)
-        
+
 #  line['name'] = line['name'].split('(')[0].strip()  
 
 # find nationality of people and correct in a new csv file     
 with open ('data_for_r_1.csv', "r") as file:
-    with open('new_data.csv', "w") as newfile:
+    with open('cleaned_nationality.csv', "w") as newfile:
         writer = csv.writer(newfile)
         writer.writerow(['name', 'nationality', 'sport']) # write headers of new csv file
         next(file) # skip header row of input file
@@ -44,7 +54,7 @@ with open ('data_for_r_1.csv', "r") as file:
                         if ' ' in element:
                             for word in element.split(' '):
                                 tokens.append(word)
-            print(tokens)
+            #print(tokens)
 
             nationality = None
             for token in tokens:
@@ -52,7 +62,7 @@ with open ('data_for_r_1.csv', "r") as file:
                     nationality = token
                     break
             
-            for ref_dict in [city_dict, demonym_dict]:
+            for ref_dict in [city_dict, demonym_dict, region_dict]:
                 if nationality is None:
                     for token in tokens:
                         if token in ref_dict:
