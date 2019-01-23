@@ -25,12 +25,13 @@ medal_filtered_merged <- rbind(dbpedia_filtered, medal_kaggle_filtered)
 #I changed some entries in Python, so i wrote to csv and then reuploaded a new file
 #write.csv(medal_filtered_merged, "medalfiltered.csv")
 updated_medal_filtered_merged <- read.csv("medalfiltered.csv")
+
 #make a plot that has both datasets
 ggplot()+geom_bar(data = dbpedia, mapping=aes(x=Medal), fill='darkblue') +
-geom_bar(data=kaggle_filteredbyyear, mapping=aes(x=Medal), fill='skyblue') +
+geom_bar(data=kaggle_filteredbyyear, mapping=aes(x=Medal), fill='skyblue') 
   xlab("Type of medal") + ylab("Count") +
   labs(title = "Number of medals per type", subtitle = "DBPedia n=8928 unique athletes, Kaggle n=10845 unique athletes")
-
+ggplot()+geom_bar(data=updated_medal_filtered_merged, mapping=aes(x=Medal, fill=dataset), position='dodge')
 ggplot()+geom_bar(data=updated_medal_filtered_merged, mapping=aes(x=dataset, fill=Medal), position='fill') + 
   scale_y_continuous(labels=scales::percent)
 
