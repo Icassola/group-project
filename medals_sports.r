@@ -86,8 +86,8 @@ ggplot() + geom_bar(data=d, mapping=aes(x=dataset, fill=Sport), position='fill')
   scale_y_continuous(labels=scales::percent) +
   scale_fill_manual(values=cbPalette) +
   ggtitle("Relative count of entries per sport")
-ggplot() + geom_bar(data=d, mapping=aes(x=Sport, fill=Sport)) +
-  facet_wrap(~dataset) +
+ggplot() + geom_bar(data=d, mapping=aes(x=dataset, fill=dataset)) +
+  facet_wrap(~Sport) +
   coord_flip()+
   scale_fill_manual(values=cbPalette) +
   ggtitle("Absolute count of entries per sport")
