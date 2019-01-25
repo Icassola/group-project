@@ -1,24 +1,24 @@
 import csv
-with open ('data_cleaned.csv', 'r', encoding="utf8") as file:
+with open ('person_per_line_dbp.csv', 'r', encoding="utf8") as file:
     reader = csv.DictReader(file)
     
-    with open('datacleaned_sports.csv', 'w', encoding='utf8', newline='') as newfile:
+    with open('person_per_line_dbp_sports.csv', 'w', encoding='utf8', newline='') as newfile:
         writer = csv.writer(newfile)
-        writer.writerow(['Year', 'Name', 'Birthplace', 'Nationality', 'Sport','Labels', 'Medal'])
+        writer.writerow(['Name', 'Nationality', 'Sport'])
         
         for entry in reader:
-            if "field hockey" in entry['Sport'].lower():
-                entry['Sport'] = 'Field hockey'
+            if "field hockey" in entry['sport'].lower():
+                entry['sport'] = 'Field hockey'
             
-            if "ice hockey" in entry['Sport'].lower():
-                entry['Sport'] = 'Ice hockey'
+            if "ice hockey" in entry['sport'].lower():
+                entry['sport'] = 'Ice Hockey'
             
-            if "volleyball" in entry['Sport'].lower():
-                entry['Sport'] = 'Volleyball'
+            if "volleyball" in entry['sport'].lower():
+                entry['sport'] = 'Volleyball'
             
-            if "basketball" in entry['Sport'].lower():
-                entry['Sport'] = 'Basketball'
+            if "basketball" in entry['sport'].lower():
+                entry['sport'] = 'Basketball'
             
-            if "handball" in entry['Sport'].lower():
-                entry['Sport'] = 'Handball'
+            if "handball" in entry['sport'].lower():
+                entry['sport'] = 'Handball'
             writer.writerow(entry.values())
