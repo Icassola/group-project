@@ -13,7 +13,7 @@ with open('athletes_medals.csv', 'r') as athletes:
     reader = csv.DictReader(athletes)
     headers = reader.fieldnames
     headers.append('BirthYear')
-
+    noname = []
 #Writing a new file and calculating the the birth year of each athlete based on known year of participation and age of athlete.
     with open('athletes_year .csv', 'w', newline ='') as athletesyears:
         writer = csv.DictWriter(athletesyears, fieldnames=headers)
@@ -23,9 +23,14 @@ with open('athletes_medals.csv', 'r') as athletes:
                 birthyear = int(line['Year']) - int(line['Age'])
                 line['BirthYear'] = birthyear
                 writer.writerow(line)
+            #Check if people who's age was missing from the dataset are from the countries we are actually comparing between both datasets:
+            else: 
+                if int(line['Year']) > 1960:
+                    noname.append(line['NOC'])               
+print(noname)
 
-names = []
 #Creating file that has each medalist only once (shows athletes who won more than one medal only once)
+names = []
 with open('athletes_year.csv', 'r') as athletes:
     athletes_reader = csv.DictReader(athletes)
     with open('person_per_line_kaggle.csv', 'w', newline ='') as file:
